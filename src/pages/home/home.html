@@ -1,0 +1,135 @@
+<ion-header>
+  <ion-navbar navbarColor>
+    <ion-title style="zoom:1.5">Quartet Community Foundation Application Administration</ion-title>
+    
+    <ion-buttons end>
+             <button ion-button>&nbsp;{{role}}&nbsp;<br>{{forename}}&nbsp;{{surname}}</button>
+             <button ion-button icon-only (click)="editprofile()"><ion-icon name="contact" style="zoom:1.5"></ion-icon></button>
+            <button ion-button icon-only (click)="logout()"><ion-icon name="power" style="zoom:1.5"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding ng-app="fupApp">
+  <div class="row">
+        <div class="col-md-3">
+    <!-- <button class="customBtn" ion-button icon-left large>
+        <ion-icon name="home"></ion-icon>
+        Home
+      </button>
+      <br> -->
+      <!-- Float the icon right -->
+      <button class="customBtn" ion-button icon-top large (click)="goToCompanyAdmin()">
+        <div>
+          <div>
+            <ion-icon name="briefcase"></ion-icon>
+          </div>
+        Company Setup
+      </div>
+          
+        
+      </button>
+      <br>
+      <button class="customBtn" ion-button icon-left large (click)="goToUserAdmin()">
+          <div>
+              <div>  <ion-icon name="person-add"></ion-icon>
+              </div>
+                    Register Users
+          </div>
+      </button>
+      <br>
+      <button class="customBtn" ion-button icon-left large (click)="goToFAQUpdate()">
+          <div>
+              <div><ion-icon name="contact"></ion-icon>
+              </div>
+      Update FAQs
+          </div>
+      </button>
+      <br>
+      <!-- Only icon (no text) -->
+     
+      </div>
+      <div class="col-md-1">
+
+      </div>
+      <div class="col-md-3">
+        <button class="customBtn" ion-button icon-left large (click)="goToThemesAdmin()">
+            <div>
+                <div><ion-icon name="pricetags"></ion-icon>
+                </div>
+          Theme Maintanance
+            </div>
+          </button>
+          <br>
+          <button class="customBtn" ion-button icon-left large (click)="goToActivitiesAdmin()">
+              <div>
+                  <div><ion-icon name="megaphone"></ion-icon>
+                  </div>
+          Activities Maintanance
+              </div>
+          </button>
+          <br>
+          <!-- <button class="customBtn" ion-button icon-left large (click)="goToArticlesAdmin()">
+              <div>
+                  <div><ion-icon name="bookmarks"></ion-icon>
+                  </div>
+              Article Maintanance
+              </div>
+              </button>
+              <br> -->
+              <button class="customBtn" ion-button icon-left large (click)="goToStoriesAdmin()">
+                  <div>
+                      <div><ion-icon name="people"></ion-icon>
+                      </div>
+                  Articles Maintanance
+                  </div>
+                  </button>
+                  <br>
+                  <!-- <button class="customBtn" ion-button icon-left large (click)="goToNewsAdmin()">
+                      <div>
+                          <div> <ion-icon name="paper"></ion-icon>
+                          </div>
+                      News Maintanance
+                      </div>
+                      </button>
+                      <br> -->
+      </div>
+      
+                  
+     
+<div class="col-md-5">
+    <!-- <ion-segment [(ngModel)]="galleryType" color="primary">
+        <ion-segment-button value="regular">
+          Regular
+        </ion-segment-button>
+        <ion-segment-button value="pinterest">
+          Pinterest
+        </ion-segment-button>
+      </ion-segment> -->
+     
+      <div [ngSwitch]="galleryType">
+        <!-- Responsive Layout with Ion Grid-->
+        <ion-grid *ngSwitchCase="'regular'">
+          <ion-row>
+            <ion-col col-6 col-md-4 col-xl-3 *ngFor="let image of this.files">
+              <div class="image-container" [style.background-image]="'url(https://ionic2-qcf-auth.herokuapp.com/api/files/file/' + image.filename + ')'"></div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+     
+        <div class="images" *ngSwitchCase="'pinterest'">
+           <!--  <div class="one-image" *ngFor="let image of this.files"> -->
+                <img class="image-container" src="https://ionic2-qcf-auth.herokuapp.com/api/files/file/file-1523792376990.jpg">
+<!--               <button class="customBtn" ion-button icon-right small (click)="deleteImage(image._id)">Delete</button> -->
+           <!--  </div> -->
+        </div>
+       
+     
+      </div>
+    
+</div>       
+<!-- <div class="col-md-5">
+    <img src="https://ionic2-qcf-auth.herokuapp.com/api/files/file/file-1522155929029.png">
+</div> -->
+</div>     
+</ion-content>

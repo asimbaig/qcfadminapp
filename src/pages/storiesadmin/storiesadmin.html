@@ -1,0 +1,238 @@
+<ion-header>
+        <ion-navbar>
+          <ion-title style="zoom:1.5">Stories Admin</ion-title>
+          <ion-buttons end>
+                <button ion-button>&nbsp;{{role}}&nbsp;</button>
+                <button ion-button icon-only (click)="editprofile()"><ion-icon name="contact" style="zoom:1.5"></ion-icon></button>
+                
+              <button ion-button icon-only (click)="logout()"><ion-icon name="power" style="zoom:1.5"></ion-icon></button>
+          </ion-buttons>
+        </ion-navbar>
+      </ion-header>
+      
+<ion-content padding *ngIf="role == 'QCFAdmin' || role == 'BusinessAdmin'" >  
+        <div class="row">
+                <div class="col-md-7" >
+                <button *ngIf="role == 'QCFAdmin' || role == 'BusinessAdmin'" type="button" class="btn btn-success btn-lg"
+                (click)="createStories()">
+                <span class="glyphicon glyphicon-file"></span> New Story..
+                </button>
+                <button *ngIf="role == 'BusinessAdmin'||role == 'QCFAdmin'" type="button" class="btn btn-success btn-lg"
+                (click)="approveStories()">
+                <span class="glyphicon glyphicon-ok-sign"></span> Your Articles..
+                </button>
+                <button *ngIf="role == 'QCFAdmin' || role == 'BusinessAdmin'" type="button" class="btn btn-success btn-lg"
+                (click)="updateStories()">
+                <span class="glyphicon glyphicon-pencil"></span> All Articles..
+                </button>
+                <br>
+                </div>
+        </div>
+       
+    <!-- <div class="row" *ngIf="getall==true||getunapproved==true">
+            <div class="col-md-6">
+                <ion-card>
+                <label item-left>Select Article...</label>
+                <ion-item>
+                <ion-select name="stories" class="form-control" [(ngModel)]="model" (ngModelChange)="onSelectStory($event)">
+                    <ion-option *ngFor="let story of stories" [value]="story">
+                        {{ story.storytitle }}
+                    </ion-option>
+                </ion-select> 
+                </ion-item>
+            </ion-card>
+            </div>
+    </div>  -->
+   
+<div class=row >
+ <div class="col-md-6">
+ <div class="row" *ngIf="getall==true||getunapproved==true">
+        <div class="col-md-12">
+                <div class="images">
+                <ion-card class="ion-card-activity" *ngFor="let story of stories">
+                        <ion-card-content>
+                                
+                                    <ion-card-title class="ion-card-title">
+                                            {{story.storytitle}}
+                                    </ion-card-title>
+                                    <!-- <label>Image:&nbsp; {{story.imagepath}} </label><br> -->
+                                    <!-- <label>Text:&nbsp; {{story.story}} </label><br> -->
+                                    <label>Theme:&nbsp; {{story.themename}} </label><br>
+                                    <label>Article Author:&nbsp; {{story.storyauthor}} </label><br>
+                                    <button type="button" class="btn btn-success btn-sm"
+                                    (click)="editStory(story)">
+                                    <span class="glyphicon glyphicon-pencil"></span> Update Article..
+                                    </button>
+                                    <button *ngIf="!story.approved" type="button" class="btn btn-success btn-sm"
+                                    (click)="approveStory(story)">
+                                    <span class="glyphicon glyphicon-ok"></span> Approve Article..
+                                    </button>
+                                    <button type="button" class="btn btn-success btn-sm"
+                                    (click)="viewStory(story)">
+                                    <span class="glyphicon glyphicon-eye-open"></span> Preview Article..
+                                    </button>
+                        </ion-card-content>
+                </ion-card>
+                </div>
+        
+        </div>
+    </div>
+
+
+        <ion-card *ngIf="createnew==true">
+    <div class="row" >
+        <div class="col-md-12">
+            <label>Story Name</label>
+        <ion-item>
+                
+                <input type="text" class="form-control"  [(ngModel)]="model.storytitle" name="storytitle">
+        </ion-item>
+        <label>Story Text</label>
+        <ion-item>
+                
+                <textarea rows="10" class="form-control" [(ngModel)]="model.story" name="story"></textarea>
+            </ion-item>
+            <label>Author Name</label>
+        <ion-item>
+                
+                <input type="text" class="form-control" [(ngModel)]="model.storyauthor" name="storyauthor">
+        </ion-item>
+        <label item-left>Select Article Type...</label>
+        <ion-item >
+            
+            <ion-select name="selectedArticleType" class="form-control"  [(ngModel)]="selectedArticleType" (ngModelChange)="onselectedArticleType($event)">
+                <ion-option *ngFor="let type of articletypes" [value]="type">
+                    {{type}}
+                </ion-option>
+            </ion-select>
+        </ion-item>
+        </div>
+    </div>
+        
+    <div class="row" >
+        <div class="col-md-12">
+            <label item-left>Select Theme...</label>
+            <ion-item >
+            
+            <ion-select name="selectedThemes" class="form-control"  [(ngModel)]="selectedThemes" (ngModelChange)="onSelectTheme($event)">
+                <ion-option *ngFor="let theme of themes" [value]="theme._id">
+                    {{ theme.name }}
+                </ion-option>
+            </ion-select> 
+            </ion-item>
+        </div>
+    </div> 
+
+
+    <div class="row" >
+        <div class="col-md-6">
+            <form>
+                <div class="form-group">
+                    <label for="single">Select Image File</label>
+                    <input type="file" class="form-control-file btn btn-primary btn-s" name="single" ng2FileSelect [uploader]="uploader" />                                  
+                </div> 
+                                                    
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <img src="https://ionic2-qcf-auth.herokuapp.com/api/files/file/{{model.imagepath}}"/>
+            <img [src]="filePreviewPath" width="200" *ngIf="filePreviewPath" />
+            <img [src]="fileRetrievePath" width="200" *ngIf="fileRetrievePath" />
+        </div>
+
+    </div>
+    <div class="row" >
+        <div class="col-md-12">
+            Queue length: {{ uploader?.queue?.length }}
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th width="50%">Name</th>
+                    <th>Size</th>
+                    <th>Progress</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of uploader.queue">
+                    <td><strong>{{ item.file.name }}</strong></td>
+                    <td nowrap>{{ item.file.size/1024/1024 | number:'.2' }} MB</td>
+                    <td>
+                        <div class="progress" style="margin-bottom: 0;">
+                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                        </div>
+                    </td>
+                    <td class="text-center">
+                        <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                        <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                        <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                    </td>
+                    <td nowrap>
+                        <button type="button" class="btn btn-success btn-xs"
+                                (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                            <span class="glyphicon glyphicon-upload"></span> Upload
+                        </button>
+                        <button type="button" class="btn btn-warning btn-xs"
+                                (click)="item.cancel()" [disabled]="!item.isUploading">
+                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs"
+                                (click)="item.remove()">
+                            <span class="glyphicon glyphicon-trash"></span> Remove
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            
+        </div>
+    </div>
+    <div class="row" *ngIf="approve==false && story==false">
+            <div class="col-md-12">
+            <button (click)=save() class="btn btn-success btn-lg"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Add</button>
+            </div>
+    </div>
+    <div class="row" *ngIf="story==true">
+            <div class="col-md-12">
+            <button (click)=updateStory() class="btn btn-success btn-lg"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Save</button>
+            </div>
+    </div>
+    <div class="row" *ngIf="approve==true">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-success btn-lg"
+                (click)="approveStory()">
+                <span class="glyphicon glyphicon-thumbs-up"></span> Approve this story..
+                </button>
+                <br>
+            </div>
+    </div>
+</ion-card>
+</div>
+
+<div class="col-md-6">
+    <div class="row">
+            <div class="col-md-12">
+            
+            <ion-card class="ion-card-article">
+                    <label>Article Preview</label>
+                    <ion-card-content>
+                            <ion-scroll class="ion-scroll-article" scrollY="true">
+                                <img src="https://ionic2-qcf-auth.herokuapp.com/api/files/file/{{model.imagepath}}"/>
+                                <ion-card-title>
+                            {{model.storytitle}}
+                                </ion-card-title>
+                                <div>
+                                    <pre> {{model.story}}</pre>
+                                </div>
+                            </ion-scroll>
+                    </ion-card-content>
+                </ion-card>
+            </div>
+    </div>
+</div>
+</div>
+</ion-content>

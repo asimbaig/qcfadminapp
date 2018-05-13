@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar>
+      <ion-title>Login</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-row class="login-form">
+      <ion-col>
+          <ion-list inset>
+
+            <ion-item>
+              <ion-label><ion-icon name="person"></ion-icon></ion-label>
+              <ion-input [(ngModel)]="email" placeholder="email" type="text"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label><ion-icon name="lock"></ion-icon></ion-label>
+              <ion-input [(ngModel)]="password" placeholder="password" type="password"></ion-input>
+            </ion-item>
+
+            <ion-item *ngIf="changepassword == 'true'">
+              <ion-label><ion-icon name="lock"></ion-icon></ion-label>
+              <ion-input [(ngModel)]="newpassword" placeholder="newpassword" type="password"></ion-input>
+            </ion-item>
+
+          </ion-list>
+
+          <ion-item *ngIf="changepassword == 'false'">          
+            <button  ion-button  default (click)="login()" color="secondary" class="login-button">Login</button>
+</ion-item>
+          <ion-item *ngIf="changepassword == 'true'">          
+            <button  ion-button  default (click)="loginpassword()" color="secondary" class="login-button">Login?</button>
+</ion-item>
+          <ion-item *ngIf="changepassword == 'true'">          
+            <button  ion-button  default (click)="loginchangepassword()" color="secondary" class="login-button">Change Password</button>
+</ion-item>
+          <ion-item>          
+            <button ion-button  default (click)="launchresetchg()" color="secondary" class="login-button">Forgot Password?</button>
+</ion-item>
+          <ion-item *ngIf="changepassword == 'false'">          
+            <button  ion-button  default (click)="launchchangepassword()" color="secondary" class="login-button">Change Password?</button>
+</ion-item>
+
+          
+      </ion-col>
+  </ion-row>
+
+  <ion-row>
+      <ion-col>
+        <ion-item *ngIf="admin == 'true'">
+                    <button ion-button default (click)="launchSignup()" class="login-button" color="secondary">Create an Account</button>
+        </ion-item>
+      </ion-col>
+  </ion-row>
+</ion-content>

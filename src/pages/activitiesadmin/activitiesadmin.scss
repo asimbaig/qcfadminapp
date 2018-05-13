@@ -1,0 +1,130 @@
+@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
+
+
+ .ios, .md {
+    
+    activities-admin {
+       
+       
+        ion-card-header {
+            font-size:2.0em;
+        }
+
+        .ion-card-title{
+            color:black;
+            font-size:1.2em;
+            font-weight: bold;
+        }
+
+        ion-card-activity {
+            background: #f7e89f;
+            border: 1px solid #bea203;
+            margin: 10px auto 10px;
+            padding: 10px;
+            //height:300px;
+            //width:300px;
+           }
+
+           ion-card{
+            margin: 10px 500px 10px 10px !important;
+            padding: 1px !important;
+            
+           }
+
+        .image-container {
+            //min-height: 150px;
+            min-width:500px;
+            background-size: cover;
+        }
+    
+        ion-item{
+            font-size:10px;
+            height:15px;
+            margin: 1px auto 1px;
+            padding: 1px;
+        }
+        @media (min-width: 0px) {
+            .images {
+                column-count: 2;
+            }
+        }
+     
+        @media (min-width: 420px) {
+            .images {
+                column-count: 3;
+            }
+        }
+     
+        @media (min-width: 720px) {
+            .images {
+                column-count: 4;
+            }
+        }
+     
+        .one-image {
+            margin: 2px;
+        }
+        
+        scroll-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+       /*  
+ 
+        ion-item {
+            border-radius: 20px !important;
+            padding-left: 5px !important;
+            margin-bottom:5px;
+            background-color: #f7e89f;
+            opacity: 0.7;
+            font-size: 1.2em;
+            color:#1a0155;
+        }
+ 
+        ion-list {
+            margin: 0;
+            background-color: #ffffff;
+            color:#1a0155;
+        }
+
+        ion-label {
+            font-size: 1.5em;
+            color: #1a0155;
+            width:350px;
+        }
+ 
+        
+
+        .heading-text {
+            flex: 1;
+            align-items: center;
+            text-align: center;
+        }
+ 
+        .heading-text h3 {
+            color: #fff;
+        }
+ 
+        .file-label {
+            font-size:0.6em;
+            color:#1a0155;
+        }
+
+        .account-form {
+            flex: 1;
+        }
+ 
+        .continue-button {
+            width: 100%;
+            border-radius: 30px;
+            margin-top: 30px;
+            font-size: 0.9em;
+            background-color: transparent;
+            border: 1px solid #fff;
+        }
+     */
+         
+       }
+    
+   }
